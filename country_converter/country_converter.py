@@ -344,7 +344,14 @@ class CountryConverter:
         Raw data read from the country data file
 
     """
+    def convert_stateabb(self, names, src=None, enforce_list=False, not_found="not found"):
+        """Convert country names to stateabb (COW country abbreviations)."""
+        return self.convert(names, src=src, to="stateabb", enforce_list=enforce_list, not_found=not_found)
 
+    def convert_ccode(self, names, src=None, enforce_list=False, not_found="not found"):
+        """Convert country names to CCode (COW numeric country codes)."""
+        return self.convert(names, src=src, to="ccode", enforce_list=enforce_list, not_found=not_found)
+    
     @staticmethod
     def _separate_exclude_cases(name, exclude_prefix):
         """Splits the excluded
@@ -414,6 +421,7 @@ class CountryConverter:
             [
                 "ISO2",
                 "ISO3",
+                "stateabb",
                 "continent",
                 "UNregion",
                 "EXIO1",
@@ -423,6 +431,7 @@ class CountryConverter:
             ]
         )
         must_be_int = [
+            "ccode",
             "ISOnumeric",
             "UNcode",
             "FAOcode",
