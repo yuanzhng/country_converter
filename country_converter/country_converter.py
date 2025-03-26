@@ -656,10 +656,14 @@ class CountryConverter:
                             c for c in etr.split("|")[0] if c.isalnum()
                         ).upper()
 
-                    try:
-                        conv_etr = int(etr)
-                    except ValueError:
-                        conv_etr = etr
+                    if pd.isna(etr):
+                        conv_etr = not_found
+                    else:
+                        try:
+                            conv_etr = int(etr)
+                        except ValueError:
+                            conv_etr = etr
+
                     outlist[ind_names].append(conv_etr)
 
                 if len(outlist[ind_names]) == 1 and enforce_list is False:
